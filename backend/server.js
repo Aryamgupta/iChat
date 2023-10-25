@@ -1,4 +1,5 @@
 const express = require("express");
+const cors = require('cors'); 
 // package for environments
 const dotenv = require("dotenv");
 const chats = require("./data/data");
@@ -6,6 +7,8 @@ const chats = require("./data/data");
 const mongoDbConnect = require("./config/db");
 dotenv.config();
 const path = require("path");
+
+
 
 const userRoutes = require("./Routes/userRoutes");
 const chatRoutes = require("./Routes/chatRoutes");
@@ -15,6 +18,7 @@ const { notFound, errorHandler } = require("./middleware/errorMiddleware");
 mongoDbConnect();
 
 const app = express(); // this is the instance of express
+app.use(cors());
 
 app.use(express.json()); // to express the json data
 // base api endpoint
