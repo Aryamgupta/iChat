@@ -60,7 +60,7 @@ var server = app.listen(
   console.log("server listening on port on " + PORT)
 );
 
-var io = require("socket.io").listen(server, {
+var io = require("socket.io")(server, {
   pingTimeout: 60000000,
   cors: {
     origin: "http://localhost:3000",
