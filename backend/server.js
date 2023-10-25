@@ -55,12 +55,12 @@ app.use(errorHandler);
 
 const PORT = process.env.PORT || 5000; // deciding port
 
-const server = app.listen(
+var server = app.listen(
   PORT,
   console.log("server listening on port on " + PORT)
 );
 
-const io = require("socket.io")(server, {
+var io = require("socket.io").listen(server, {
   pingTimeout: 60000000,
   cors: {
     origin: "http://localhost:3000",
