@@ -1,0 +1,58 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;1,300&display=swap');
+
+.App{
+    min-height: 100vh;
+    display: flex;
+    background-image: url('background.jpg');
+    background-size:cover;
+    background-position: center;
+}
+
+body{
+    font-family: Work sans ;
+}
+
+.searchText{
+    display : flex;
+}
+
+@media only screen and (max-width: 600px) {
+    .searchText {
+            display: none;
+    }
+}
+
+::-webkit-scrollbar {
+    width: 0px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgba(136, 136, 136, 0.281);
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+.none{
+    display: none;
+}
+
+.dflex{
+    display: flex;
+}
+
+@media only screen and (min-width: 600px) {
+    .res-dflex {
+       
+        display: flex;
+    }
+}
+
+.messages{
+    display: flex;
+    flex-direction: column;
+    overflow-y: scroll;
+    scrollbar-width: none;
+}

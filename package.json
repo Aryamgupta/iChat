@@ -1,0 +1,27 @@
+{
+  "name": "ichat",
+  "version": "1.0.0",
+  "description": "Web Chat app for talkatives",
+  "main": "server.js",
+  "scripts": {
+    "server": "nodemon backend/server.js",
+    "start": "node backend/server.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "npm install && npm install --prefix frontend && npm run build --prefix frontend"
+  },
+  "author": "Aryam Gupta",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^1.5.0",
+    "bcryptjs": "^2.4.3",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "express-async-handler": "^1.2.0",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^7.5.2",
+    "mongoose-timestamp": "^0.6.0",
+    "moongose": "^1.0.0",
+    "nodemon": "^3.0.1",
+    "socket.io": "^4.7.2"
+  }
+}
