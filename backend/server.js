@@ -67,7 +67,7 @@ var server = app.listen(
 var io = require("socket.io")(server, {
   pingTimeout: 60000000,
   cors: {
-    origin: "http://localhost:3000",
+    origin: "https://ichat-4xay.onrender.com",
   },
 });
 
