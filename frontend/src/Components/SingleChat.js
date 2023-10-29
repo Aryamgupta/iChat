@@ -18,7 +18,7 @@ import ScrollableChat from "./ScrollableChat";
 import io from "socket.io-client";
 import { Player, Controls } from "@lottiefiles/react-lottie-player";
 
-const ENDPOINT = "http://localhost:3000";
+const ENDPOINT = "https://ichat-4xay.onrender.com";
 
 var socket, selectedChatCompare;
 
