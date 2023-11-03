@@ -48,6 +48,7 @@ const authUser = asynchHandler(async (req, res) => {
       pic: user.pic,
       token: generateToken(user._id),
     });
+    // res.status(201).json(user);
   } else {
     res.status(401);
     throw new Error("Invalid credentials");
