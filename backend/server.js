@@ -1,5 +1,4 @@
 const express = require("express");
-const cors = require('cors'); 
 // package for environments
 const dotenv = require("dotenv");
 const chats = require("./data/data");
@@ -7,8 +6,6 @@ const chats = require("./data/data");
 const mongoDbConnect = require("./config/db");
 dotenv.config();
 const path = require("path");
-
-
 
 const userRoutes = require("./Routes/userRoutes");
 const chatRoutes = require("./Routes/chatRoutes");
@@ -18,7 +15,6 @@ const { notFound, errorHandler } = require("./middleware/errorMiddleware");
 mongoDbConnect();
 
 const app = express(); // this is the instance of express
-app.use(cors());
 
 app.use(express.json()); // to express the json data
 // base api endpoint
@@ -59,15 +55,15 @@ app.use(errorHandler);
 
 const PORT = process.env.PORT || 5000; // deciding port
 
-var server = app.listen(
+const server = app.listen(
   PORT,
   console.log("server listening on port on " + PORT)
 );
 
-var io = require("socket.io")(server, {
-  pingTimeout: 60000000,
+const io = require("socket.io")(server, {
+  pingTimeout: 60000,
   cors: {
-    origin: "https://ichat-4xay.onrender.com",
+    origin: "http://localhost:3000",
   },
 });
 

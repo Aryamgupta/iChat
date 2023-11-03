@@ -19,6 +19,10 @@ const chatModel = mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
     },
+    chatColor: {
+      type: "string",
+      default: "#e2e8f0",
+    },
   },
   {
     timestamps: true,
