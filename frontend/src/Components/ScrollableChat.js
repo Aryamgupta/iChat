@@ -6,6 +6,7 @@ import {
   isSameSender,
   isSameSenderMargin,
   isSameUser,
+  getSenderComplete,
 } from "../config/ChatLogic";
 import { ChatState } from "./Context/ChatProvider";
 import { Avatar, Tooltip } from "@chakra-ui/react";
@@ -13,7 +14,7 @@ import { Player } from "@lottiefiles/react-lottie-player";
 import animation from "../Animations/typing.json";
 
 const ScrollableChat = ({ messages, isTyping }) => {
-  const { user } = ChatState();
+  const { user, selectedChat } = ChatState();
   return (
     <ScrollableFeed>
       {messages &&
@@ -69,8 +70,8 @@ const ScrollableChat = ({ messages, isTyping }) => {
                 mr={1}
                 size="sm"
                 cursor="pointer"
-                name={user.name}
-                src={user.pic}
+                name={getSenderComplete(user, selectedChat.users).name}
+                src={getSenderComplete(user, selectedChat.users).pic}
               ></Avatar>
               <span>
                 <Player
