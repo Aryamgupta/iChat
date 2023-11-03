@@ -45,7 +45,5 @@ export const isSameUser = (messages, m, i) => {
 };
 
 export const capatalise = (u) => {
-  return (
-    u.split(" ")[0][0].toUpperCase() + u.split(" ")[0].slice(1).toLowerCase()
-  );
+  return u;
 };
