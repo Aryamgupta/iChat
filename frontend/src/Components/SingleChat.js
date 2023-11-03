@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { ChatState } from "./Context/ChatProvider";
 import {
+  Avatar,
   Box,
   FormControl,
   IconButton,
@@ -10,7 +11,7 @@ import {
   useToast,
 } from "@chakra-ui/react";
 import { ArrowBackIcon, ArrowForwardIcon } from "@chakra-ui/icons";
-import { getSender, getSenderComplete } from "../config/ChatLogic";
+import { capatalise, getSender, getSenderComplete } from "../config/ChatLogic";
 import ProfileModal from "./Missle/ProfileModal";
 import UpadateGroupChatModal from "./Missle/UpadateGroupChatModal";
 import axios from "axios";
@@ -18,7 +19,7 @@ import ScrollableChat from "./ScrollableChat";
 import io from "socket.io-client";
 import { Player, Controls } from "@lottiefiles/react-lottie-player";
 
-const ENDPOINT = "https://ichat-4xay.onrender.com";
+const ENDPOINT = "http://localhost:3000";
 
 var socket, selectedChatCompare;
 
@@ -166,6 +167,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
       }
     }, timerLength);
   };
+
   return (
     <>
       {selectedChat ? (
@@ -180,22 +182,57 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
             alignItems="center"
           >
             <IconButton
-              display={{ base: "flex", md: "none" }}
+              display={{
+                base: "flex",
+                md: "none",
+              }}
               icon={<ArrowBackIcon />}
               onClick={() => {
                 setSelectedChat("");
               }}
+              style={{
+                color: "#FFF",
+                borderRadius: "100%",
+                background:
+                  "radial-gradient(56.57% 56.57% at 32.61% 26.4%, #FFE9C8 0%, #3D3939 0.01%, #161616 100%)",
+              }}
             ></IconButton>
             {!selectedChat.isGroupChat ? (
               <>
-                {getSender(user, selectedChat.users)}
+                <Box
+                  display="flex"
+                  justifyContent="center"
+                  alignItems="center"
+                  className="notificationPannel"
+                  fontSize="20px"
+                >
+                  <Avatar
+                    mr={1}
+                    marginRight="10px"
+                    size="sm"
+                    cursor="pointer"
+                    name={
+                      !selectedChat.isGroupChat
+                        ? getSender(user, selectedChat.users)
+                        : selectedChat.chatName
+                    }
+                    src={
+                      !selectedChat.isGroupChat
+                        ? getSenderComplete(user, selectedChat.users).pic
+                        : "to beupdated"
+                    }
+                  ></Avatar>
+                  {capatalise(getSender(user, selectedChat.users))}
+                </Box>
                 <ProfileModal
                   user={getSenderComplete(user, selectedChat.users)}
                 />
               </>
             ) : (
               <>
-                {selectedChat.chatName.toUpperCase()}
+                <Box className="notificationPannel" fontSize="20px">
+                  {capatalise(selectedChat.chatName)}
+                </Box>
                 <UpadateGroupChatModal
                   fetchAgain={fetchAgain}
                   setFetchAgain={setFetchAgain}
@@ -209,11 +246,12 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
             flexDir="column"
             justifyContent="flex-end"
             p={3}
-            background="#E8E8E8"
+            backgroundColor="rgba(0, 0, 0, 0.3)"
             w="100%"
             h="100%"
-            borderRadius="lg"
+            borderRadius="8px"
             overflowY="hidden"
+            marginBottom="10px"
           >
             {loading ? (
               <Spinner
@@ -234,16 +272,31 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
               onKeyDown={sendMessage}
               isRequired
               mt={3}
+              style={{ background: "rgba(0,0,0,0.7)", borderRadius: "8px" }}
             >
               <Input
-                variant="filled"
-                bg="#E0E0E0"
+                pl="10px"
+                style={{
+                  border: "0px",
+                  borderRadius: "0px",
+                  fontWeight: "200",
+                }}
+                _active={{ color: "white" }}
+                _focus={{ color: "white" }}
+                variant="unstyled"
                 placeholder="Enter a message.."
                 value={newMessage}
                 onChange={(e) => typingHandler(e)}
+                className="notificationPannel"
               />
 
               <IconButton
+                style={{
+                  color: "#FFF",
+                  borderRadius: "8px",
+                  background:
+                    "radial-gradient(56.57% 56.57% at 32.61% 26.4%, #FFE9C8 0%, #3D3939 0.01%, #161616 100%)",
+                }}
                 icon={<ArrowForwardIcon />}
                 onClick={sendMessagefinal}
               />
@@ -259,7 +312,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
             height: "100%",
           }}
         >
-          <Text fontSize="3xl" pb={3} fontFamily="Work sans">
+          <Text fontSize="3xl" pb={3} className="notificationPannel">
             Click on a user to start chatting
           </Text>
         </Box>

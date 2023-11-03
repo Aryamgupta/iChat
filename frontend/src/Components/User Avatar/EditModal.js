@@ -14,11 +14,14 @@ import {
   useToast,
   InputGroup,
   InputRightElement,
+  Box,
+  Text,
 } from "@chakra-ui/react";
 import axios from "axios";
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import { ChatState } from "../Context/ChatProvider";
+import { CloseIcon, EditIcon } from "@chakra-ui/icons";
 
 const EditModal = ({ children }) => {
   const [show, setShow] = useState(false);
@@ -148,22 +151,60 @@ const EditModal = ({ children }) => {
 
       <Modal isOpen={isOpen}>
         <ModalOverlay />
-        <ModalContent>
-          <ModalHeader>Upadate Details</ModalHeader>
-          <ModalCloseButton />
+        <ModalContent
+          style={{
+            borderRadius: "28px",
+            background: "#FFE9C8",
+            boxShadow:
+              "3px 3px 10px 0px rgba(255, 207, 136, 0.80), -3px -3px 10px 0px rgba(255, 207, 136, 0.80)",
+            backdropFilter: "blur(89px)",
+            width: "300px",
+          }}
+          className="notificationPannel"
+        >
+          <ModalHeader>
+            <Box
+              style={{
+                display: "flex",
+                flexDirection: "row",
+                justifyContent: "space-between",
+                alignItems: "center",
+              }}
+            >
+              <Text
+                className="notificationPannel"
+                fontSize="20px"
+                fontWeight="400"
+              >
+                Upadate Details
+              </Text>
+              <Button
+                onClick={onClose}
+                style={{
+                  color: "#FFF",
+                  borderRadius: "100%",
+                  background:
+                    "radial-gradient(56.57% 56.57% at 32.61% 26.4%, #FFE9C8 0%, #3D3939 0.01%, #161616 100%)",
+                }}
+              >
+                <CloseIcon />
+              </Button>
+            </Box>
+          </ModalHeader>
           <ModalBody>
-            <FormControl>
-              <FormLabel>Name</FormLabel>
+            <FormControl marginBottom="10px">
+              <FormLabel className="entries_labes">Name</FormLabel>
               <Input
                 type="text"
                 placeholder={user.name}
                 onChange={(e) => {
                   setName(e.target.value);
                 }}
+                className="entries_input inputs "
               />
             </FormControl>
-            <FormControl>
-              <FormLabel>Password</FormLabel>
+            <FormControl marginBottom="10px">
+              <FormLabel className="entries_labes">Password</FormLabel>
               <InputGroup>
                 <Input
                   type={show ? "text" : "password"}
@@ -171,16 +212,25 @@ const EditModal = ({ children }) => {
                   onChange={(e) => {
                     setPassword(e.target.value);
                   }}
+                  className="entries_input inputs "
                 />
                 <InputRightElement width="4.5rem">
-                  <Button h="1.75rem" size=" sm" onClick={handleROnClick}>
+                  <Button
+                    h="1.75rem"
+                    size=" sm"
+                    onClick={handleROnClick}
+                    bg="transparent"
+                    _hover={{ backgroundColor: "transparent" }}
+                  >
                     {show ? "hide" : "show"}
                   </Button>
                 </InputRightElement>
               </InputGroup>
             </FormControl>
-            <FormControl>
-              <FormLabel>Upload Your Picture</FormLabel>
+            <FormControl marginBottom="10px">
+              <FormLabel className="entries_labes">
+                Upload Your Picture
+              </FormLabel>
               <Input
                 type="file"
                 p={1.5}
@@ -189,19 +239,27 @@ const EditModal = ({ children }) => {
                 onChange={(e) => {
                   postDetails(e.target.files[0]);
                 }}
+                className="entries_input inputs "
               />
             </FormControl>
           </ModalBody>
           <ModalFooter>
             <Button
-              colorScheme="blue"
-              width={"120px"}
-              style={{ marginTop: 15 }}
+              style={{
+                marginTop: 15,
+                borderRadius: "20px",
+                background:
+                  " radial-gradient(56.57% 56.57% at 32.61% 26.4%, #FFE9C8 0%, #3D3939 0.01%, #161616 100%)",
+
+                fontSize: "20px",
+                color: "white",
+                padding: "10px",
+              }}
               onClick={submitHandler}
               isLoading={loading}
               loadingText="Processing..."
             >
-              Edit
+              <EditIcon />
             </Button>
           </ModalFooter>
         </ModalContent>

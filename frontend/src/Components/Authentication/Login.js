@@ -12,6 +12,7 @@ import {
 import axios from "axios";
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
+import { ChatState } from "../Context/ChatProvider";
 
 const Login = () => {
   const history = useHistory("/");
@@ -20,6 +21,7 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
+  const { setUser, loadUserDetails } = ChatState();
 
   const handleROnClick = () => {
     setShow(!show);
@@ -51,6 +53,7 @@ const Login = () => {
         { email, password },
         config
       );
+      console.log(data);
       toast({
         title: "User Loged In Successfully",
         status: "success",
@@ -58,10 +61,11 @@ const Login = () => {
         isClosable: true,
         position: "bottom",
       });
+      setUser(data);
       localStorage.setItem("userInfo", JSON.stringify(data));
       localStorage.setItem("token", data.token);
-      // console.log(data);
       setLoading(false);
+      loadUserDetails();
       history.push("/chats");
     } catch (error) {
       toast({
@@ -79,17 +83,19 @@ const Login = () => {
   return (
     <VStack spacing="5px" color="black">
       <FormControl id="email" isRequired>
-        <FormLabel>Email</FormLabel>
+        <FormLabel className="entries_labes">Email</FormLabel>
         <Input
           type="email"
           placeholder="Email"
           onChange={(e) => {
             setEmail(e.target.value);
           }}
+          style={{}}
+          className="entries_input inputs "
         />
       </FormControl>
       <FormControl id="password" isRequired>
-        <FormLabel>Password</FormLabel>
+        <FormLabel className="entries_labes">Password</FormLabel>
         <InputGroup>
           <Input
             type={show ? "text" : "password"}
@@ -97,9 +103,27 @@ const Login = () => {
             onChange={(e) => {
               setPassword(e.target.value);
             }}
+            bg="#FFDCC8"
+            color="#FF9500"
+            style={{
+              fontFamily: "Poppins",
+              fontSize: "12px",
+              fontStyle: "normal",
+              fontWeight: "600",
+              lineHeight: "normal",
+              letterSpacing: "0.78px",
+              borderRadius: "14px",
+            }}
+            className="entries_input"
           />
           <InputRightElement width="4.5rem">
-            <Button h="1.75rem" size=" sm" onClick={handleROnClick}>
+            <Button
+              h="1.75rem"
+              size=" sm"
+              onClick={handleROnClick}
+              bg="transparent"
+              _hover={{ backgroundColor: "transparent" }}
+            >
               {show ? "hide" : "show"}
             </Button>
           </InputRightElement>
@@ -107,25 +131,27 @@ const Login = () => {
       </FormControl>
 
       <Button
-        colorScheme="blue"
-        width={"50%"}
-        style={{ marginTop: 15 }}
+        style={{
+          marginTop: 15,
+          borderRadius: "14px",
+          width: "50%",
+          background: "#FFCCF4",
+          boxShadow:
+            "4px 4px 8px 0px rgba(0, 0, 0, 0.10) inset, -4px -4px 8px 0px rgba(0, 0, 0, 0.10) inset",
+
+          color: "#5D2E2E",
+          textAlign: "center",
+          fontFamily: "Poppins",
+          fontSize: "20px",
+          fontStyle: "normal",
+          fontWeight: "600",
+          lineHeight: "normal",
+          letterSpacing: " 1.3px",
+        }}
         onClick={submitHandler}
         isLoading={loading}
       >
         Login
-      </Button>
-      <Button
-        variant={"solid"}
-        colorScheme="red"
-        width={"50%"}
-        style={{ marginTop: 15 }}
-        onClick={() => {
-          setEmail("guestuser@example.com");
-          setPassword("12345");
-        }}
-      >
-        Set Guest User Details
       </Button>
     </VStack>
   );

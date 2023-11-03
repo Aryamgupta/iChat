@@ -147,12 +147,21 @@ const GroupChatModal = ({ children }) => {
 
       <Modal isOpen={isOpen} onClose={handleonClose}>
         <ModalOverlay />
-        <ModalContent>
+        <ModalContent
+          style={{
+            borderRadius: "28px",
+            background: "#FFE9C8",
+            boxShadow:
+              "3px 3px 10px 0px rgba(255, 207, 136, 0.80), -3px -3px 10px 0px rgba(255, 207, 136, 0.80)",
+            backdropFilter: "blur(89px)",
+            width: "300px",
+          }}
+        >
           <ModalHeader
-            fontSize="35px"
-            fontFamily="Work sans"
+            fontSize="20px"
             d="flex"
             textAlign="center"
+            className="notificationPannel"
           >
             Create Group Chat
           </ModalHeader>
@@ -160,7 +169,7 @@ const GroupChatModal = ({ children }) => {
           <ModalBody d="flex" flexDir="column" alignItems="center">
             <FormControl>
               <Input
-                placeholder="Chat Name"
+                placeholder="Group Name"
                 mb={3}
                 onChange={(e) => setGroupChatName(e.target.value)}
               />
@@ -198,7 +207,7 @@ const GroupChatModal = ({ children }) => {
                 size="lg"
               />
             ) : (
-              searchResult?.slice(0, 4).map((user) => (
+              searchResult?.slice(0, 6).map((user) => (
                 <UserListItem
                   user={user}
                   key={user._id}
@@ -211,8 +220,19 @@ const GroupChatModal = ({ children }) => {
           </ModalBody>
 
           <ModalFooter>
-            <Button colorScheme="blue" onClick={handleSubmit}>
-              Create Chat
+            <Button
+              style={{
+                borderRadius: "5px",
+                background:
+                  "radial-gradient(56.57% 56.57% at 32.61% 26.4%, #FFE9C8 0%, #3D3939 0.01%, #161616 100%)",
+              }}
+              className="notificationPannel"
+              fontSize="17px"
+              color="white"
+              fontWeight="200"
+              onClick={handleSubmit}
+            >
+              Create
             </Button>
           </ModalFooter>
         </ModalContent>

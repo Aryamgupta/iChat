@@ -20,9 +20,17 @@ import {
   DrawerBody,
   Input,
   useToast,
+  Icon,
+  Img,
+  DrawerFooter,
 } from "@chakra-ui/react";
 import axios, { Axios } from "axios";
-import { BellIcon, ChevronDownIcon } from "@chakra-ui/icons";
+import {
+  BellIcon,
+  ChevronDownIcon,
+  CloseIcon,
+  SearchIcon,
+} from "@chakra-ui/icons";
 import { useDisclosure } from "@chakra-ui/hooks";
 import ProfileModal from "./ProfileModal";
 
@@ -36,7 +44,7 @@ import EditModal from "../User Avatar/EditModal";
 
 const SideDrawer = () => {
   const toast = useToast();
-  const History = useHistory();
+  const history = useHistory();
 
   const { isOpen, onOpen, onClose } = useDisclosure();
 
@@ -51,11 +59,16 @@ const SideDrawer = () => {
     chats,
     setChats,
     notification,
+    setUser,
     setNotification,
+    loadUserDetails,
   } = ChatState();
+
   const logoutHandle = () => {
     localStorage.removeItem("userInfo");
-    History.push("/");
+    loadUserDetails();
+    console.log(localStorage.getItem("userInfo"));
+    history.push("/");
   };
 
   const accessChat = async (userId) => {
@@ -134,7 +147,6 @@ const SideDrawer = () => {
         d="flex"
         justifyContent="space-between"
         alignItems="center"
-        bg="white"
         w="100%"
         p="5px 10px "
         borderWidth="-5px"
@@ -145,28 +157,37 @@ const SideDrawer = () => {
         }}
       >
         <Tooltip label="Search Users to chat" hasArrow placement="bottom-end">
-          <Button variant="ghost" onClick={onOpen}>
-            <i className="fas fa-search"></i>
-            <Text className="searchText" px={4}>
+          <Button
+            variant="ghost"
+            onClick={onOpen}
+            className="serachBtn "
+            bg="transparent"
+            _hover={{ backgroundColor: "rgba(99, 98, 101, 0.5)" }}
+            _active={{ backgroundColor: "rgba(99, 98, 101, 0.8)" }}
+          >
+            <i className="fas fa-search notificationPannel" fontSize="20px"></i>
+            <Text
+              className="searchText notificationPannel"
+              fontSize="20px"
+              px={4}
+            >
               Search User
             </Text>
           </Button>
         </Tooltip>
 
-        <Text fontSize="2xl" fontFamily="Work sans">
-          iChat
-        </Text>
+        <Text className="headingsTextStyle">iChat</Text>
 
-        <div>
-          <Menu>
-            <MenuButton p={1}>
+        <Box display="flex" justifyContent="center" alignItems="center">
+          <Menu color="#636265">
+            <MenuButton p={1} height="60px" width="60px" marginRight="5px">
               <NotificationBadge
                 count={notification.length}
                 effect={Effect.SCALE}
               />
-              <BellIcon fontSize="2xl" m={1} />
+              <BellIcon fontSize="30px" color="#636265" />
             </MenuButton>
-            <MenuList pl={2}>
+            <MenuList p={2} className="notificationPannel">
               {!notification.length && "No New Messages"}
               {notification.map((notif) => (
                 <MenuItem
@@ -184,7 +205,13 @@ const SideDrawer = () => {
             </MenuList>
           </Menu>
           <Menu>
-            <MenuButton as={Button} rightIcon={<ChevronDownIcon />}>
+            <MenuButton
+              as={Button}
+              rightIcon={<ChevronDownIcon />}
+              bg="transparent"
+              _hover="none"
+              _active={{ backgroundColor: "rgba(99, 98, 101, 0.5)" }}
+            >
               <Avatar
                 cursor="pointer"
                 size="sm"
@@ -192,25 +219,71 @@ const SideDrawer = () => {
                 src={user.pic}
               />
             </MenuButton>
-            <MenuList>
+            <MenuList className="notificationPannel" fontSize="15px">
               <ProfileModal user={user}>
-                <MenuItem>My Profile</MenuItem>
+                <MenuItem
+                  bg="transparent"
+                  _hover={{ backgroundColor: "rgba(99, 98, 101, 0.5)" }}
+                  _active={{ backgroundColor: "rgba(99, 98, 101, 0.8)" }}
+                >
+                  My Profile
+                </MenuItem>
               </ProfileModal>
               <MenuDivider />
               <EditModal user={user}>
-                <MenuItem>Edit</MenuItem>
+                <MenuItem
+                  bg="transparent"
+                  _hover={{ backgroundColor: "rgba(99, 98, 101, 0.5)" }}
+                  _active={{ backgroundColor: "rgba(99, 98, 101, 0.8)" }}
+                >
+                  Edit
+                </MenuItem>
               </EditModal>
               <MenuDivider />
-              <MenuItem onClick={logoutHandle}>Logout</MenuItem>
+              <MenuItem
+                onClick={logoutHandle}
+                bg="transparent"
+                _hover={{ backgroundColor: "rgba(99, 98, 101, 0.5)" }}
+                _active={{ backgroundColor: "rgba(99, 98, 101, 0.8)" }}
+              >
+                Logout
+              </MenuItem>
             </MenuList>
           </Menu>
-        </div>
+        </Box>
       </Box>
 
-      <Drawer isOpen={isOpen} placement="left" onClose={onClose}>
+      <Drawer
+        isOpen={isOpen}
+        placement="left"
+        onClose={onClose}
+        className="notificationPannel"
+      >
         <DrawerOverlay />
-        <DrawerContent>
-          <DrawerHeader borderBottomWidth="1px">Search Users</DrawerHeader>
+        <DrawerContent
+          style={{ backgroundColor: "rgba(0,0,0,0.8)", color: "white" }}
+          className="notificationPannel"
+        >
+          <DrawerHeader borderBottomWidth="1px">
+            <Box
+              style={{
+                display: "flex",
+                flexDirection: "row",
+                justifyContent: "space-between",
+                alignItems: "center",
+              }}
+              className="notificationPannel"
+              color="white"
+              fontSize="20px"
+              fontWeight="400"
+            >
+              Search Users{" "}
+              <CloseIcon
+                _hover={{ cursor: "pointer" }}
+                onClick={onClose}
+              ></CloseIcon>
+            </Box>
+          </DrawerHeader>
           <DrawerBody>
             <Box
               d="flex"
@@ -222,7 +295,17 @@ const SideDrawer = () => {
                 mr={2}
                 onChange={(e) => setSearch(e.target.value)}
               />
-              <Button onClick={handleSearch}>Go</Button>
+              <Button
+                onClick={handleSearch}
+                style={{
+                  borderRadius: "20%",
+                  background:
+                    "radial-gradient(56.57% 56.57% at 32.61% 26.4%, #FFE9C8 0%, #3D3939 0.01%, #161616 100%)",
+                  color: "white",
+                }}
+              >
+                <SearchIcon />
+              </Button>
             </Box>
             {loading ? (
               <ChatLoading />

@@ -13,7 +13,7 @@ const SelectedUserBadge = ({ user, handleFunction }) => {
       mb={2}
       variant="outline"
       fontSize={12}
-      color={colorVar}
+      color="rgba(94, 46, 46, 1)"
     >
       {user.name}
       <CloseIcon

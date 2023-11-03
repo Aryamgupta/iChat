@@ -37,12 +37,19 @@ const ScrollableChat = ({ messages, isTyping }) => {
                 backgroundColor: `${
                   m.sender._id === user._id ? "#BEE3F8" : "#B9F5D0"
                 }`,
+                background: "rgb(238,174,202)",
+                background: ` linear-gradient(${
+                  m.sender._id === user._id ? 270 : 90
+                }deg,rgba(238,174,202,0) 0%, rgba(94,46,46,0.8435749299719888) 30%)`,
                 marginLeft: isSameSenderMargin(messages, m, i, user._id),
                 marginTop: isSameUser(messages, m, i, user._id) ? 3 : 10,
-                borderRadius: "20px",
+                borderRadius: "8px",
                 padding: "5px 15px",
                 maxWidth: "75%",
+                fontSize: "15px",
+                color: "white",
               }}
+              className="notificationPannel"
             >
               {m.content}
             </span>

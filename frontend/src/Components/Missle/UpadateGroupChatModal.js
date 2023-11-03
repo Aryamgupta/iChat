@@ -1,4 +1,4 @@
-import { ViewIcon } from "@chakra-ui/icons";
+import { SettingsIcon, EditIcon, DeleteIcon } from "@chakra-ui/icons";
 import {
   Modal,
   ModalOverlay,
@@ -207,16 +207,34 @@ const UpadateGroupChatModal = ({ fetchAgain, setFetchAgain, fetchChats }) => {
   return (
     <>
       <IconButton
+        d={{ base: "flex" }}
+        icon={<SettingsIcon color="white" />}
         onClick={onOpen}
-        display={{ base: "flex" }}
-        icon={<ViewIcon />}
-        id={selectedChat._id}
+        style={{
+          borderRadius: "100%",
+          background:
+            "radial-gradient(56.57% 56.57% at 32.61% 26.4%, #FFE9C8 0%, #3D3939 0.01%, #161616 100%)",
+        }}
       />
 
       <Modal isOpen={isOpen} onClose={onClose} isCentered>
         <ModalOverlay />
-        <ModalContent>
-          <ModalHeader fontSize="25px" display="flex" justifyContent="center">
+        <ModalContent
+          style={{
+            borderRadius: "28px",
+            background: "#FFE9C8",
+            boxShadow:
+              "3px 3px 10px 0px rgba(255, 207, 136, 0.80), -3px -3px 10px 0px rgba(255, 207, 136, 0.80)",
+            backdropFilter: "blur(89px)",
+            width: "300px",
+          }}
+        >
+          <ModalHeader
+            fontSize="20px"
+            d="flex"
+            textAlign="center"
+            className="notificationPannel"
+          >
             {selectedChat.chatName}
           </ModalHeader>
           <ModalCloseButton />
@@ -234,7 +252,7 @@ const UpadateGroupChatModal = ({ fetchAgain, setFetchAgain, fetchChats }) => {
             </Box>
             <FormControl display="flex">
               <Input
-                placeholder="Chat Name"
+                placeholder={selectedChat.chatName}
                 mb={3}
                 value={groupChatName}
                 onChange={(e) => {
@@ -242,13 +260,21 @@ const UpadateGroupChatModal = ({ fetchAgain, setFetchAgain, fetchChats }) => {
                 }}
               />
               <Button
-                variant="solid"
+                style={{
+                  borderRadius: "5px",
+                  background:
+                    "radial-gradient(56.57% 56.57% at 32.61% 26.4%, #FFE9C8 0%, #3D3939 0.01%, #161616 100%)",
+                }}
+                className="notificationPannel"
+                fontSize="17px"
+                color="white"
+                fontWeight="200"
                 ml={1}
                 isLoading={renameLoading}
-                background={colorVar}
+                // background={}
                 onClick={handleRename}
               >
-                Update
+                <EditIcon />
               </Button>
             </FormControl>
             <FormControl display="flex">
@@ -287,12 +313,20 @@ const UpadateGroupChatModal = ({ fetchAgain, setFetchAgain, fetchChats }) => {
 
           <ModalFooter>
             <Button
-              colorScheme="red"
+              style={{
+                borderRadius: "5px",
+                background:
+                  "radial-gradient(56.57% 56.57% at 32.61% 26.4%, #FFE9C8 0%, #3D3939 0.01%, #161616 100%)",
+              }}
+              className="notificationPannel"
+              fontSize="17px"
+              color="white"
+              fontWeight="200"
               onClick={() => {
                 handleRemove(user);
               }}
             >
-              Leave Group
+              <DeleteIcon />
             </Button>
           </ModalFooter>
         </ModalContent>

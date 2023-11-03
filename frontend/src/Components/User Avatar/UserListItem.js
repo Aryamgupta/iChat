@@ -1,5 +1,6 @@
 import { Avatar } from "@chakra-ui/avatar";
 import { Box, Text } from "@chakra-ui/layout";
+import { capatalise } from "../../config/ChatLogic";
 
 const UserListItem = ({ user, handleFunction }) => {
   // const { user } = ChatState();
@@ -7,10 +8,9 @@ const UserListItem = ({ user, handleFunction }) => {
     <Box
       onClick={handleFunction}
       cursor="pointer"
-      bg="#dfdfdf"
+      bg="rgba(255, 233, 200, 0.7)"
       _hover={{
-        background: "#8b7a65",
-        color: "white",
+        background: "rgba(255, 233, 200, 1)",
       }}
       color="black"
       px={3}
@@ -23,6 +23,7 @@ const UserListItem = ({ user, handleFunction }) => {
         flexDirection: "row",
         alignItems: "center",
       }}
+      className="notificationPannel"
     >
       <Avatar
         mr={2}
@@ -32,7 +33,7 @@ const UserListItem = ({ user, handleFunction }) => {
         src={user.pic}
       />
       <Box>
-        <Text>{user.name}</Text>
+        <Text>{capatalise(user.name)}</Text>
         <Text fontSize="xs">
           <b>Email : </b>
           {user.email}

@@ -43,3 +43,9 @@ export const isSameSenderMargin = (messages, m, i, userId) => {
 export const isSameUser = (messages, m, i) => {
   return i > 0 && messages[i - 1].sender._id === m.sender._id;
 };
+
+export const capatalise = (u) => {
+  return (
+    u.split(" ")[0][0].toUpperCase() + u.split(" ")[0].slice(1).toLowerCase()
+  );
+};

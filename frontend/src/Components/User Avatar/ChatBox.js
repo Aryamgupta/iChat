@@ -5,17 +5,22 @@ import SingleChat from "../SingleChat";
 
 const ChatBox = ({ fetchAgain, setFetchAgain }) => {
   const { selectedChat } = ChatState();
+
   return (
     <Box
-      className={`${!selectedChat ? "none" : "dflex"} res-dflex`}
+      className={`${!selectedChat ? "none" : "dflex"} res-dflex chatBox`}
       d={{ md: "flex" }}
       alignItems="center"
       flexDir="column"
       p={3}
-      bg="white"
       w={{ base: "100%", md: "68%" }}
-      borderRadius="lg"
-      borderWidth="1px"
+      style={{
+        height: "100%",
+        borderRadius: "32px",
+        background: "#FFE9C8",
+        boxShadow:
+          " 4px 4px 8px 0px rgba(255, 198, 112, 0.60), -4px -4px 8px 0px rgba(255, 198, 112, 0.60)",
+      }}
     >
       <SingleChat fetchAgain={fetchAgain} setFetchAgain={setFetchAgain} />
     </Box>

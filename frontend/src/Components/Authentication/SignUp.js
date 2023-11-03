@@ -12,6 +12,7 @@ import {
 import axios from "axios";
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
+import { ChatState } from "../Context/ChatProvider";
 
 const SignUp = () => {
   const history = useHistory("/");
@@ -23,6 +24,8 @@ const SignUp = () => {
   const [pic, setPic] = useState("");
   const [loading, setLoading] = useState(false);
   const toast = useToast();
+
+  const { setUser } = ChatState();
 
   const handleROnClick = () => {
     setShow(!show);
@@ -104,11 +107,12 @@ const SignUp = () => {
         },
       };
 
-      const data = await axios.post(
+      const { data } = await axios.post(
         "/api/user",
         { name, email, password, pic },
         config
       );
+      console.log(data);
       toast({
         title: "User Registered Successfully",
         status: "success",
@@ -116,7 +120,7 @@ const SignUp = () => {
         isClosable: true,
         position: "bottom",
       });
-
+      setUser(data);
       localStorage.setItem("userInfo", JSON.stringify(data));
       setLoading(false);
       history.push("/chats");
@@ -136,27 +140,49 @@ const SignUp = () => {
   return (
     <VStack spacing="5px" color="black">
       <FormControl id="first-name" isRequired>
-        <FormLabel>Name</FormLabel>
+        <FormLabel className="entries_labes">Name</FormLabel>
         <Input
           type="text"
           placeholder="Name"
           onChange={(e) => {
             setName(e.target.value);
           }}
+          style={{
+            color: "#FF9500",
+            fontFamily: "Poppins",
+            fontSize: "12px",
+            fontStyle: "normal",
+            fontWeight: "600",
+            lineHeight: "normal",
+            letterSpacing: "0.78px",
+            borderRadius: "14px",
+            background: "#FFDCC8",
+          }}
         />
       </FormControl>
       <FormControl id="email" isRequired>
-        <FormLabel>Email</FormLabel>
+        <FormLabel className="entries_labes">Email</FormLabel>
         <Input
           type="email"
           placeholder="Email"
           onChange={(e) => {
             setEmail(e.target.value);
           }}
+          style={{
+            color: "#FF9500",
+            fontFamily: "Poppins",
+            fontSize: "12px",
+            fontStyle: "normal",
+            fontWeight: "600",
+            lineHeight: "normal",
+            letterSpacing: "0.78px",
+            borderRadius: "14px",
+            background: "#FFDCC8",
+          }}
         />
       </FormControl>
       <FormControl id="password" isRequired>
-        <FormLabel>Password</FormLabel>
+        <FormLabel className="entries_labes">Password</FormLabel>
         <InputGroup>
           <Input
             type={show ? "text" : "password"}
@@ -164,16 +190,32 @@ const SignUp = () => {
             onChange={(e) => {
               setPassword(e.target.value);
             }}
+            style={{
+              color: "#FF9500",
+              fontFamily: "Poppins",
+              fontSize: "12px",
+              fontStyle: "normal",
+              fontWeight: "600",
+              lineHeight: "normal",
+              letterSpacing: "0.78px",
+              borderRadius: "14px",
+              background: "#FFDCC8",
+            }}
           />
           <InputRightElement width="4.5rem">
-            <Button h="1.75rem" size=" sm" onClick={handleROnClick}>
+            <Button
+              h="1.75rem"
+              size=" sm"
+              onClick={handleROnClick}
+              bg="transparent"
+            >
               {show ? "hide" : "show"}
             </Button>
           </InputRightElement>
         </InputGroup>
       </FormControl>
       <FormControl id="confrimPassword" isRequired>
-        <FormLabel>Confirm Password</FormLabel>
+        <FormLabel className="entries_labes">Confirm Password</FormLabel>
         <InputGroup>
           <Input
             type={show ? "text" : "password"}
@@ -181,9 +223,25 @@ const SignUp = () => {
             onChange={(e) => {
               setConfirmPassword(e.target.value);
             }}
+            style={{
+              color: "#FF9500",
+              fontFamily: "Poppins",
+              fontSize: "12px",
+              fontStyle: "normal",
+              fontWeight: "600",
+              lineHeight: "normal",
+              letterSpacing: "0.78px",
+              borderRadius: "14px",
+              background: "#FFDCC8",
+            }}
           />
           <InputRightElement width="4.5rem">
-            <Button h="1.75rem" size=" sm" onClick={handleROnClick}>
+            <Button
+              h="1.75rem"
+              size=" sm"
+              onClick={handleROnClick}
+              bg="transparent"
+            >
               {show ? "hide" : "show"}
             </Button>
           </InputRightElement>
@@ -191,7 +249,7 @@ const SignUp = () => {
       </FormControl>
 
       <FormControl id="pic">
-        <FormLabel>Upload Your Picture</FormLabel>
+        <FormLabel className="entries_labes">Upload Your Picture</FormLabel>
         <Input
           type="file"
           p={1.5}
@@ -200,13 +258,38 @@ const SignUp = () => {
           onChange={(e) => {
             postDetails(e.target.files[0]);
           }}
+          style={{
+            color: "#FF9500",
+            fontFamily: "Poppins",
+            fontSize: "12px",
+            fontStyle: "normal",
+            fontWeight: "600",
+            lineHeight: "normal",
+            letterSpacing: "0.78px",
+            borderRadius: "14px",
+            background: "#FFDCC8",
+          }}
         />
       </FormControl>
 
       <Button
-        colorScheme="blue"
-        width={"50%"}
-        style={{ marginTop: 15 }}
+        style={{
+          marginTop: 15,
+          borderRadius: "14px",
+          width: "50%",
+          background: "#FFCCF4",
+          boxShadow:
+            "4px 4px 8px 0px rgba(0, 0, 0, 0.10) inset, -4px -4px 8px 0px rgba(0, 0, 0, 0.10) inset",
+
+          color: "#5D2E2E",
+          textAlign: "center",
+          fontFamily: "Poppins",
+          fontSize: "20px",
+          fontStyle: "normal",
+          fontWeight: "600",
+          lineHeight: "normal",
+          letterSpacing: " 1.3px",
+        }}
         onClick={submitHandler}
         isLoading={loading}
         loadingText="Processing..."

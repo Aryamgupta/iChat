@@ -1,9 +1,23 @@
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;1,300&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,900;1,900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+*{
+        /* text-align: center; */
+        font-family: Montserrat;
+        /* font-size: 20px; */
+        font-style: normal;
+        font-weight: 700;
+        line-height: normal;
+        letter-spacing: 1.3px;
+}
+
 
 .App{
     min-height: 100vh;
     display: flex;
-    background-image: url('background.jpg');
+    /* background-image: url('background.jpg'); */
+    background-color: #FFE9C8;
     background-size:cover;
     background-position: center;
 }
@@ -55,4 +69,125 @@ body{
     flex-direction: column;
     overflow-y: scroll;
     scrollbar-width: none;
+}
+
+.entries_labes{
+    color: #5D2E2E;
+        font-family: Poppins;
+        font-size: 15px;
+        font-style: normal;
+        font-weight: 600;
+        line-height: normal;
+        letter-spacing: 0.65px;
+}
+
+.entries_input{
+    border-radius: 14px;
+    background: #FFDCC8;
+    
+    box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.10) inset, 0px -4px 8px 0px rgba(0, 0, 0, 0.10) inset;
+    width: 100%;
+    height: 50px;
+    padding: 10px;
+    /* for text */
+
+        color: #FF9500 !important;
+        font-family: Poppins;
+        font-size: 12px;
+        font-style: normal;
+        font-weight: 600;
+        line-height: normal;
+        letter-spacing: 0.78px;
+}
+
+.submitBtn{
+    border-radius: 14px;
+    width: 50%;
+        background: #FFCCF4;
+        box-shadow: 4px 4px 8px 0px rgba(0, 0, 0, 0.10) inset, -4px -4px 8px 0px rgba(0, 0, 0, 0.10) inset;
+
+        color: #5D2E2E;
+            text-align: center;
+            font-family: Poppins;
+            font-size: 20px;
+            font-style: normal;
+            font-weight: 600;
+            line-height: normal;
+            letter-spacing: 1.3px;
+}
+
+.headingsTextStyle{
+color: #FF9500;
+    text-align: center;
+    font-family: Poppins;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 20.056px;
+    /* 100.279% */
+    letter-spacing: -0.372px;
+}
+
+.serachBtn :hover{
+    background-color: transparent;
+}
+
+.testDiv{
+    width: 50px;
+    height: 50px;
+    background: radial-gradient(circle at 100%, #FFE9C8, #FFD698);
+        border-radius: 100%;
+        border:20px red;
+    
+    margin-right:5px ;
+    overflow: visible;
+}
+
+.notificationPannel{
+    color: #636265;
+        text-align: left;
+        font-family: Poppins;
+        font-size: 12px;
+        font-style: normal;
+        font-weight: 600;
+        line-height: 20.056px;
+        /* 167.132% */
+        letter-spacing: -0.372px;
+        border : 0px;
+}
+
+.inputs{
+    color: #FF9500;
+        font-family: Poppins;
+        font-size: 12px;
+        font-style: normal;
+        font-weight: 600;
+        line-height: normal;
+        letter-spacing: 0.78px;
+}
+
+
+.selectedChatSTyle{
+    color: #5E2E2E;
+    
+        text-align: center;
+        font-family: Poppins;
+        font-size: 15px;
+        font-style: normal;
+        font-weight: 700;
+        line-height: 20.056px;
+        /* 100.279% */
+        letter-spacing: -0.372px;
+    border-radius: 15px;
+        background: #FFCCF4;
+    
+        box-shadow: 4px 4px 8px 0px rgba(255, 146, 231, 0.60) inset, -4px -4px 8px 0px rgba(255, 146, 231, 0.60) inset;
+}
+
+.selectedChatSTyle:hover{
+    background: #FFCCF4;
+}
+
+.chatPae{
+    height: calc(100%-70px) !important;
 }

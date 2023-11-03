@@ -1,32 +1,60 @@
 import React, { useEffect, useState } from "react";
 import { ChatState } from "./Context/ChatProvider";
-import { Box } from "@chakra-ui/react";
+import { Box, Spinner } from "@chakra-ui/react";
 import SideDrawer from "./Missle/SideDrawer";
 import MyChats from "./Missle/MyChats";
 import ChatBox from "./User Avatar/ChatBox";
 import { set } from "mongoose";
+import { SpinnerIcon } from "@chakra-ui/icons";
 
 const ChatPage = () => {
   const { user } = ChatState();
   const [fetchAgain, setFetchAgain] = useState(false);
 
+  const [loading, setLoading] = useState(true);
+
+  const heightt = window.innerHeight - 70;
+
+  var neededInterval = setInterval(myFunc, 1000);
+
+  function myFunc() {
+    if (user !== null) {
+      setLoading(false);
+    }
+  }
+
   return (
-    <div style={{ width: "100%" }}>
-      {user && <SideDrawer />}
-      <Box
-        className="chatBoxArrage"
-        d="flex"
-        justifyContent="space-between"
-        w="100%"
-        h="92vh"
-        p="10px"
-      >
-        {user && <MyChats fetchAgain={fetchAgain} />}
-        {user && (
-          <ChatBox fetchAgain={fetchAgain} setFetchAgain={setFetchAgain} />
-        )}
-      </Box>
-    </div>
+    <>
+      {loading ? (
+        <Box
+          width="100%"
+          className="chatPae"
+          display="flex"
+          justifyContent="center"
+          alignItems="center"
+          margin="auto"
+        >
+          <Spinner size="xl" color="rgba(94, 46, 46, 1)" />
+        </Box>
+      ) : (
+        <div style={{ width: "100%" }}>
+          {user !== null && <SideDrawer />}
+          <Box
+            className="chatBoxArrage"
+            d="flex"
+            justifyContent="space-between"
+            w="100%"
+            h={heightt}
+            p="10px"
+          >
+            {user !== null && <MyChats fetchAgain={fetchAgain} />}
+            {user !== null && (
+              <ChatBox fetchAgain={fetchAgain} setFetchAgain={setFetchAgain} />
+            )}
+          </Box>
+        </div>
+      )}
+    </>
   );
 };
 
