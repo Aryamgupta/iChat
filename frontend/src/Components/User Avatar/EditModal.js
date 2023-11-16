@@ -16,6 +16,7 @@ import {
   InputRightElement,
   Box,
   Text,
+  Avatar,
 } from "@chakra-ui/react";
 import axios from "axios";
 import React, { useState } from "react";
@@ -37,6 +38,8 @@ const EditModal = ({ children }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { user, setUser } = ChatState();
 
+  const [userAvatar, setUserAvatar] = useState(user.pic);
+
   const handleROnClick = () => {
     setShow(!show);
   };
@@ -48,9 +51,8 @@ const EditModal = ({ children }) => {
       return;
     }
     if (
-      pics !== undefined ||
-      pics.type === "image/jpeg" ||
-      pics.type === "image/png"
+      pics !== undefined &&
+      (pics.type === "image/jpeg" || pics.type === "image/png")
     ) {
       const data = new FormData();
       data.append("file", pics);
@@ -60,6 +62,7 @@ const EditModal = ({ children }) => {
         .post("https://api.cloudinary.com/v1_1/dy4gud84y/image/upload", data)
         .then((response) => {
           setPic(response.data.url.toString());
+          setUserAvatar(response.data.url.toString());
           setLoading(false);
           toast({
             title: "Image uploaded successfully!",
@@ -193,6 +196,43 @@ const EditModal = ({ children }) => {
           </ModalHeader>
           <ModalBody>
             <FormControl marginBottom="10px">
+              <FormLabel
+                style={{
+                  width: "100px",
+                  height: "100px",
+                  cursor: "pointer",
+                }}
+              >
+                <Input
+                  type="file"
+                  p={1.5}
+                  accept="image/*"
+                  placeholder="Confirm Password"
+                  onChange={(e) => {
+                    postDetails(e.target.files[0]);
+                  }}
+                  hidden
+                  style={{
+                    width: "100px",
+                    height: "100px",
+                    borderRadius: "100%",
+                    backgroundColor: "Red",
+                  }}
+                  className="entries_input inputs "
+                />
+                <Avatar
+                  style={{
+                    width: "100px",
+                    height: "100px",
+                    borderRadius: "100px",
+                  }}
+                  className="userAvs"
+                  src={userAvatar}
+                  name={user.name}
+                ></Avatar>
+              </FormLabel>
+            </FormControl>
+            <FormControl marginBottom="10px">
               <FormLabel className="entries_labes">Name</FormLabel>
               <Input
                 type="text"
@@ -226,21 +266,6 @@ const EditModal = ({ children }) => {
                   </Button>
                 </InputRightElement>
               </InputGroup>
-            </FormControl>
-            <FormControl marginBottom="10px">
-              <FormLabel className="entries_labes">
-                Upload Your Picture
-              </FormLabel>
-              <Input
-                type="file"
-                p={1.5}
-                accept="image/*"
-                placeholder="Confirm Password"
-                onChange={(e) => {
-                  postDetails(e.target.files[0]);
-                }}
-                className="entries_input inputs "
-              />
             </FormControl>
           </ModalBody>
           <ModalFooter>

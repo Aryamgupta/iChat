@@ -8,6 +8,7 @@ import {
   Button,
   useToast,
   Toast,
+  Avatar,
 } from "@chakra-ui/react";
 import axios from "axios";
 import React, { useState } from "react";
@@ -23,6 +24,7 @@ const SignUp = () => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [pic, setPic] = useState("");
   const [loading, setLoading] = useState(false);
+  const [profPic, setProfPic] = useState("");
   const toast = useToast();
 
   const { setUser } = ChatState();
@@ -35,9 +37,8 @@ const SignUp = () => {
     setLoading(true);
     // for cheecking if pic is presend or not
     if (
-      pics !== undefined ||
-      pics.type === "image/jpeg" ||
-      pics.type === "image/png"
+      pics !== undefined &&
+      (pics.type === "image/jpeg" || pics.type === "image/png")
     ) {
       const data = new FormData();
       data.append("file", pics);
@@ -47,6 +48,7 @@ const SignUp = () => {
         .post("https://api.cloudinary.com/v1_1/dy4gud84y/image/upload", data)
         .then((response) => {
           setPic(response.data.url.toString());
+          setProfPic(response.data.url.toString());
           setLoading(false);
           toast({
             title: "Image uploaded successfully!",
@@ -138,6 +140,29 @@ const SignUp = () => {
 
   return (
     <VStack spacing="5px" color="black">
+      <FormControl id="pic">
+        <FormLabel
+          style={{
+            width: "100px",
+            height: "100px",
+            cursor: "pointer",
+          }}
+        >
+          <Input
+            type="file"
+            p={1.5}
+            accept="image/*"
+            placeholder="Confirm Password"
+            onChange={(e) => {
+              postDetails(e.target.files[0]);
+            }}
+            style={{}}
+            hidden
+          />
+          <Avatar src={profPic} width="100px" height="100px"></Avatar>
+          <span></span>
+        </FormLabel>
+      </FormControl>
       <FormControl id="first-name" isRequired>
         <FormLabel className="entries_labes">Name</FormLabel>
         <Input
@@ -245,30 +270,6 @@ const SignUp = () => {
             </Button>
           </InputRightElement>
         </InputGroup>
-      </FormControl>
-
-      <FormControl id="pic">
-        <FormLabel className="entries_labes">Upload Your Picture</FormLabel>
-        <Input
-          type="file"
-          p={1.5}
-          accept="image/*"
-          placeholder="Confirm Password"
-          onChange={(e) => {
-            postDetails(e.target.files[0]);
-          }}
-          style={{
-            color: "#FF9500",
-            fontFamily: "Poppins",
-            fontSize: "12px",
-            fontStyle: "normal",
-            fontWeight: "600",
-            lineHeight: "normal",
-            letterSpacing: "0.78px",
-            borderRadius: "14px",
-            background: "#FFDCC8",
-          }}
-        />
       </FormControl>
 
       <Button
