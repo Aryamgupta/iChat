@@ -10,6 +10,7 @@ const path = require("path");
 const userRoutes = require("./Routes/userRoutes");
 const chatRoutes = require("./Routes/chatRoutes");
 const messageRoutes = require("./Routes/messageRoutes");
+const postRoutes = require("./Routes/postRoutes");
 const { notFound, errorHandler } = require("./middleware/errorMiddleware");
 
 mongoDbConnect();
@@ -33,6 +34,10 @@ app.use("/api/user", userRoutes);
 // endpoint for meassages
 
 app.use("/api/message", messageRoutes);
+
+// endpoint for the post
+
+app.use("/api/post", postRoutes);
 
 // -------------------------- deplyment
 const __dirname1 = path.resolve();
