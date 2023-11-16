@@ -24,6 +24,7 @@ import {
   Img,
   DrawerFooter,
 } from "@chakra-ui/react";
+import { Link } from "react-router-dom";
 import axios, { Axios } from "axios";
 import {
   BellIcon,
@@ -42,7 +43,7 @@ import NotificationBadge from "react-notification-badge";
 import { Effect } from "react-notification-badge";
 import EditModal from "../User Avatar/EditModal";
 
-const SideDrawer = () => {
+const SideDrawer = (props) => {
   const toast = useToast();
   const history = useHistory();
 
@@ -51,7 +52,6 @@ const SideDrawer = () => {
   const [search, setSearch] = useState("");
   const [searchResult, setSearchResult] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [chatLoading, setChatLoading] = useState(false);
 
   const {
     user,
@@ -62,45 +62,18 @@ const SideDrawer = () => {
     setUser,
     setNotification,
     loadUserDetails,
+    postPage,
+    setPostPage,
+    chatLoading,
+    setChatLoading,
+    accessChat,
   } = ChatState();
 
   const logoutHandle = () => {
     localStorage.removeItem("userInfo");
     loadUserDetails();
-    console.log(localStorage.getItem("userInfo"));
+    // console.log(localStorage.getItem("userInfo"));
     history.push("/");
-  };
-
-  const accessChat = async (userId) => {
-    try {
-      setChatLoading(true);
-
-      const config = {
-        headers: {
-          "Content-Type": "application/json",
-          token: user.token,
-        },
-      };
-
-      const { data } = await axios.post("/api/chat/", { userId }, config);
-
-      if (chats && !chats.find((c) => c._id === data._id))
-        setChats([data, ...chats]);
-
-      setSelectedChat(data);
-      setChatLoading(false);
-      console.log(data);
-      onClose();
-    } catch (error) {
-      toast({
-        title: "Error fetching the chat",
-        description: error.message,
-        status: "error",
-        duration: 5000,
-        isClosable: true,
-        position: "bottom-left",
-      });
-    }
   };
 
   const handleSearch = async () => {
@@ -128,7 +101,7 @@ const SideDrawer = () => {
 
       setSearchResult(data);
       setLoading(false);
-      console.log(searchResult);
+      // console.log(searchResult);
     } catch (error) {
       toast({
         title: "Error Occured!",
@@ -176,7 +149,15 @@ const SideDrawer = () => {
           </Button>
         </Tooltip>
 
-        <Text className="headingsTextStyle">iChat</Text>
+        <Button
+          onClick={() => {
+            setPostPage(!postPage);
+            setSelectedChat();
+          }}
+          variant="unstyled"
+        >
+          <Text className="headingsTextStyle">iChat</Text>
+        </Button>
 
         <Box display="flex" justifyContent="center" alignItems="center">
           <Menu color="#636265">
@@ -314,7 +295,10 @@ const SideDrawer = () => {
                 <UserListItem
                   key={user._id}
                   user={user}
-                  handleFunction={() => accessChat(user._id)}
+                  handleFunction={async () => {
+                    await accessChat(user._id);
+                    onClose();
+                  }}
                 />
               ))
             )}

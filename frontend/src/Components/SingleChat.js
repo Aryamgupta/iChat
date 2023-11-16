@@ -19,7 +19,7 @@ import ScrollableChat from "./ScrollableChat";
 import io from "socket.io-client";
 import { Player, Controls } from "@lottiefiles/react-lottie-player";
 
-const ENDPOINT = "https://ichat-4xay.onrender.com";
+const ENDPOINT = "http://localhost:3000";
 
 var socket, selectedChatCompare;
 
@@ -105,7 +105,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
       );
 
       setMessages(data);
-      console.log(messages);
+      // console.log(messages);
       setLoading(false);
 
       socket.emit("join chat", selectedChat._id);
@@ -132,7 +132,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
         if (!notification.includes(newMessageRecieved)) {
           setNotification([newMessageRecieved, ...notification]);
           setFetchAgain(!fetchAgain);
-          console.log(notification);
+          // console.log(notification);
         }
       } else {
         setMessages([...messages, newMessageRecieved]);

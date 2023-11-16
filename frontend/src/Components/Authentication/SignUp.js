@@ -112,7 +112,6 @@ const SignUp = () => {
         { name, email, password, pic },
         config
       );
-      console.log(data);
       toast({
         title: "User Registered Successfully",
         status: "success",

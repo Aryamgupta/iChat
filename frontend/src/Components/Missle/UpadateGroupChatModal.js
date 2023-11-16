@@ -20,7 +20,6 @@ import {
 import React, { useState } from "react";
 import { ChatState } from "../Context/ChatProvider";
 import SelectedUserBadge from "../User Avatar/SelectedUserBadge";
-import colorVar from "../ColorVaribales";
 import axios from "axios";
 import UserListItem from "../User Avatar/UserListItem";
 
@@ -295,7 +294,7 @@ const UpadateGroupChatModal = ({ fetchAgain, setFetchAgain, fetchChats }) => {
                 thickness="3px"
                 speed="0.65s"
                 emptyColor="gray.200"
-                color={colorVar}
+                color="rgba(94, 46, 46, 1)"
                 size="lg"
               />
             ) : (

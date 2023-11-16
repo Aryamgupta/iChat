@@ -19,7 +19,6 @@ import { ChatState } from "../Context/ChatProvider";
 import axios from "axios";
 import UserListItem from "../User Avatar/UserListItem";
 import SelectedUserBadge from "../User Avatar/SelectedUserBadge";
-import colorVar from "../ColorVaribales";
 
 const GroupChatModal = ({ children }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -203,7 +202,7 @@ const GroupChatModal = ({ children }) => {
                 thickness="3px"
                 speed="0.65s"
                 emptyColor="gray.200"
-                color={colorVar}
+                color="rgba(94, 46, 46, 1)"
                 size="lg"
               />
             ) : (

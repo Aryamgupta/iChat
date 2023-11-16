@@ -4,7 +4,7 @@ import { Box, useToast, Button, Stack, Text, Avatar } from "@chakra-ui/react";
 import axios from "axios";
 import { AddIcon } from "@chakra-ui/icons";
 import ChatLoading from "./ChatLoading";
-import { getSender, getSenderComplete } from "../../config/ChatLogic";
+import { getSender, getSenderComplete, timeCalc } from "../../config/ChatLogic";
 import GroupChatModal from "./GroupChatModal";
 import { updateData } from "moongose/controller/comments_controller";
 
@@ -47,35 +47,9 @@ const MyChats = ({ fetchAgain }) => {
 
   useEffect(() => {
     setLoggedUser(JSON.parse(localStorage.getItem("userInfo")));
-    console.log(loggedUser);
+    // console.log(loggedUser);
     fetchChats();
   }, [fetchAgain]);
-
-  const timeCalc = (timeStr) => {
-    let secs = Math.floor(timeStr / 1000);
-
-    if (secs < 60) return `${secs} second${secs !== 1 ? "s" : ""} ago`;
-
-    let mins = Math.floor(secs / 60);
-
-    if (mins < 60) return `${mins} minute${mins !== 1 ? "s" : ""} ago`;
-
-    let hrs = Math.floor(mins / 60);
-
-    if (hrs < 24) return `${hrs} hour${hrs !== 1 ? "s" : ""} ago`;
-
-    let days = Math.floor(hrs / 24);
-
-    if (days < 30) return `${days} day${days !== 1 ? "s" : ""} ago`;
-
-    let months = Math.floor(days / 30);
-
-    if (months < 12) return `${months} month${months !== 1 ? "s" : ""} ago`;
-
-    let years = Math.floor(months / 12);
-
-    return `${years} year${years !== 1 ? "s" : ""} ago`;
-  };
 
   return (
     <Box
@@ -174,7 +148,7 @@ const MyChats = ({ fetchAgain }) => {
                     src={
                       !chat.isGroupChat
                         ? getSenderComplete(loggedUser, chat.users).pic
-                        : "to beupdated"
+                        : "to be updated"
                     }
                   ></Avatar>
                 }

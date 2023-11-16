@@ -6,9 +6,10 @@ import MyChats from "./Missle/MyChats";
 import ChatBox from "./User Avatar/ChatBox";
 import { set } from "mongoose";
 import { SpinnerIcon } from "@chakra-ui/icons";
+import PostPage from "./Posts/PostPage";
 
 const ChatPage = () => {
-  const { user } = ChatState();
+  const { user, postPage, selectedChat } = ChatState();
   const [fetchAgain, setFetchAgain] = useState(false);
 
   const [loading, setLoading] = useState(true);
@@ -38,7 +39,7 @@ const ChatPage = () => {
         </Box>
       ) : (
         <div style={{ width: "100%" }}>
-          {user !== null && <SideDrawer />}
+          {user !== null && <SideDrawer link="/posts" />}
           <Box
             className="chatBoxArrage"
             d="flex"
@@ -47,13 +48,18 @@ const ChatPage = () => {
             h={heightt}
             p="10px"
           >
-            {user !== null && <MyChats fetchAgain={fetchAgain} />}
-            {user !== null && (
+            {user !== null && (window.innerWidth > "768" || !postPage) && (
+              <MyChats fetchAgain={fetchAgain} />
+            )}
+
+            {user !== null && postPage && !selectedChat && <PostPage />}
+            {user !== null && (!postPage || selectedChat) && (
               <ChatBox fetchAgain={fetchAgain} setFetchAgain={setFetchAgain} />
             )}
           </Box>
         </div>
       )}
+      <></>
     </>
   );
 };

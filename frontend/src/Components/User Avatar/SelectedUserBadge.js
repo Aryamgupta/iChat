@@ -1,7 +1,6 @@
 import { CloseIcon } from "@chakra-ui/icons";
 import { Badge } from "@chakra-ui/react";
 import React from "react";
-import colorVar from "../ColorVaribales";
 
 const SelectedUserBadge = ({ user, handleFunction }) => {
   return (

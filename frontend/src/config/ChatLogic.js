@@ -47,3 +47,29 @@ export const isSameUser = (messages, m, i) => {
 export const capatalise = (u) => {
   return u;
 };
+
+export const timeCalc = (timeStr) => {
+  let secs = Math.floor(timeStr / 1000);
+
+  if (secs < 60) return `${secs} second${secs !== 1 ? "s" : ""} ago`;
+
+  let mins = Math.floor(secs / 60);
+
+  if (mins < 60) return `${mins} minute${mins !== 1 ? "s" : ""} ago`;
+
+  let hrs = Math.floor(mins / 60);
+
+  if (hrs < 24) return `${hrs} hour${hrs !== 1 ? "s" : ""} ago`;
+
+  let days = Math.floor(hrs / 24);
+
+  if (days < 30) return `${days} day${days !== 1 ? "s" : ""} ago`;
+
+  let months = Math.floor(days / 30);
+
+  if (months < 12) return `${months} month${months !== 1 ? "s" : ""} ago`;
+
+  let years = Math.floor(months / 12);
+
+  return `${years} year${years !== 1 ? "s" : ""} ago`;
+};

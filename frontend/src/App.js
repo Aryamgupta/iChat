@@ -2,6 +2,7 @@ import "./App.css";
 import { Route } from "react-router-dom/cjs/react-router-dom.min";
 import HomePage from "./Components/HomePage";
 import ChatPage from "./Components/ChatPage";
+import PostPage from "./Components/Posts/PostPage";
 
 function App() {
   return (
