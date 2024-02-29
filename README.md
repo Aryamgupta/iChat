@@ -30,11 +30,13 @@ Share posts, like, and comment on others' posts to engage with the community.
 **Contributing**
 Contributions are welcome! If you'd like to contribute to iChat, please follow these steps:
 
-Fork the repository on GitHub.
+**Fork the repository on GitHub.**
 Create a new branch with a descriptive name: git checkout -b feature/my-new-feature.
 Make your changes and commit them: git commit -am 'Add some feature'.
 Push your changes to your fork: git push origin feature/my-new-feature.
 Submit a pull request detailing the changes you made.
 
-About the Author
+**About the Author**
 This project was developed by Aryam Gupta. You can find more of my work on https://github.com/aryamgupta , https://aryamgupta.onrender.com and https://www.linkedin.com/in/aryam-gupta-a92115212/
+
+website link =  https://ichat-4xay.onrender.com/
