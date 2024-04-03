@@ -14,11 +14,13 @@ const postRoutes = require("./Routes/postRoutes");
 const { notFound, errorHandler } = require("./middleware/errorMiddleware");
 
 mongoDbConnect();
+// instance of express
+const app = express();
 
-const app = express(); // this is the instance of express
-
-app.use(express.json()); // to express the json data
+// to express the json data
+app.use(express.json());
 // base api endpoint
+
 // app.get("/", (req, res) => {
 //   console.log("App running");
 //   res.send("Hello World");
@@ -77,7 +79,6 @@ io.on("connection", (socket) => {
 
   socket.on("setup", (userData) => {
     socket.join(userData._id);
-    console.log(userData._id);
     socket.emit("connected");
   });
 

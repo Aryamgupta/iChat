@@ -4,6 +4,9 @@ const generateToken = require("../config/generateToken");
 
 const bcrypt = require("bcryptjs");
 
+// @description   to sign up a user
+// @route   POST /api/user
+// @access  Unprotected
 const registerUser = asynchHandler(async (req, res) => {
   const { name, email, password } = req.body;
   // error for entries are missing
@@ -35,6 +38,9 @@ const registerUser = asynchHandler(async (req, res) => {
   }
 });
 
+// @description   to login in
+// @route   POST /api/user/login
+// @access  Unprotected
 const authUser = asynchHandler(async (req, res) => {
   const { email, password } = req.body;
 
@@ -54,7 +60,10 @@ const authUser = asynchHandler(async (req, res) => {
     throw new Error("Invalid credentials");
   }
 });
-// /api/user?search=aryam
+
+// @description   to get details of all users
+// @route   GET /api/user?search=(keyword)
+// @access  Protected
 const allUsers = asynchHandler(async (req, res) => {
   const keyword = req.query.search
     ? {
@@ -70,7 +79,9 @@ const allUsers = asynchHandler(async (req, res) => {
   res.send(users);
 });
 
-// to update the password
+// @description   to get update details of the user
+// @route   PUT /api/update
+// @access  Protected
 
 const updateUser = asynchHandler(async (req, res) => {
   try {

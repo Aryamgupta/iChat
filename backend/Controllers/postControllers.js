@@ -4,6 +4,9 @@ const Post = require("../Models/postModel");
 const Comment = require("../Models/commentModel");
 const { post } = require("moongose/routes");
 
+// @description   to create a new post
+// @route   POST /api/post/
+// @access  Protected
 const putPost = asynchHandler(async (req, res) => {
   const { desc, pic } = req.body;
 
@@ -22,6 +25,9 @@ const putPost = asynchHandler(async (req, res) => {
   }
 });
 
+// @description   to show all posts
+// @route   GET /api/post/
+// @access  Protected
 const showAllPosts = asynchHandler(async (req, res) => {
   const allPost = await Post.find({}).populate("userId");
   if (allPost) {
@@ -32,6 +38,9 @@ const showAllPosts = asynchHandler(async (req, res) => {
   }
 });
 
+// @description   to comment on a particular post
+// @route   PUT /api/post/comment
+// @access  Protected
 const commentOnPost = asynchHandler(async (req, res) => {
   const { postId, content } = req.body;
 
@@ -72,6 +81,9 @@ const commentOnPost = asynchHandler(async (req, res) => {
   }
 });
 
+// @description   to get all the comments of a particular post
+// @route   POST /api/post/getAllComments
+// @access  Protected
 const getAllComments = asynchHandler(async (req, res) => {
   const { postId } = req.body;
 
@@ -90,6 +102,9 @@ const getAllComments = asynchHandler(async (req, res) => {
   }
 });
 
+// @description   to like a particular post
+// @route   POST /api/post/like
+// @access  Protected
 const likeOnPost = asynchHandler(async (req, res) => {
   const { postId } = req.body;
   if (!postId) {
@@ -116,6 +131,9 @@ const likeOnPost = asynchHandler(async (req, res) => {
   }
 });
 
+// @description   to get all the post of a user
+// @route   GET /api/post/:userId
+// @access  Protected
 const getUserPosts = asynchHandler(async (req, res) => {
   try {
     const userId = req.params.userId;
